@@ -16,3 +16,40 @@
 2. 文档标题和文件名应能表达主题，避免使用 `new.md`、`temp.md` 等模糊命名。
 3. 文档内容应保持 MVP 风格，只写当前阶段需要的信息。
 4. OpenSpec proposal、tasks、spec delta 仍放在 `openspec/`，不要混入 `docs/`。
+
+## 必要信息
+
+每一份正式文档都应包含以下信息：
+
+1. `文档标题`：用一句话说明文档主题。
+2. `文档类型`：从 PRD、Plan、Design、Acceptance、Operations 中选择。
+3. `适用项目`：说明文档适用于 Codex Agent 规范模板或其中某个模块。
+4. `作者`：记录主要编写人或维护人。
+5. `创建日期` 与 `更新时间`：使用 `YYYY-MM-DD` 格式。
+6. `状态`：使用 `draft`、`review`、`accepted`、`archived` 之一。
+7. `关联文档`：列出前置、后续或配套文档。
+8. `关联 OpenSpec change`：如果文档来自 OpenSpec change，应写明 change id；没有则写 `无`。
+
+## 推荐文档结构
+
+正式文档建议按以下结构编写：
+
+1. `背景`：为什么需要这份文档。
+2. `目标`：本文件要解决什么问题。
+3. `范围`：本文件覆盖什么，不覆盖什么。
+4. `正文`：按文档类型展开核心内容。
+5. `验收或验证`：说明如何判断文档内容已完成或可执行。
+6. `风险与后续事项`：列出未解决问题、延迟项或需要确认的内容。
+7. `变更记录`：记录重要修改历史。
+
+## 关联规则
+
+1. PRD 应关联后续 plans、design、acceptance 文档。
+2. plans 应关联来源 PRD、相关 design 和 acceptance 文档。
+3. design 应关联来源 PRD、执行 plans 和验证 acceptance 文档。
+4. acceptance 应关联被验收的 PRD、plans、design 或 OpenSpec change。
+5. operations 应关联对应的发布、提交、PR、部署或回滚流程。
+
+## 模板
+
+新建正式文档时，优先复制 `TEMPLATE.md`，再根据文档类型删减无关部分。

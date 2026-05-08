@@ -57,6 +57,7 @@ codex/
 │   └── skills/
 ├── docs/
 │   ├── README.md
+│   ├── TEMPLATE.md
 │   ├── prd/
 │   ├── plans/
 │   ├── design/
@@ -120,7 +121,7 @@ PM -> Builder -> Tester
 1. `AGENTS.md` 存在，并包含 MVP、TDD、SMART、OpenSpec change 提交收口、角色协作和交付输出要求。
 2. `AGENTS.local.md` 存在，并说明它是项目局部规范配置文件。
 3. `.codex/agents/` 中存在 `pm`、`explorer`、`builder`、`tester`、`reporter` 五类角色。
-4. `docs/` 中存在 `prd`、`plans`、`design`、`acceptance`、`operations` 子目录，且每个目录有 README。
+4. `docs/` 中存在 `TEMPLATE.md`、`prd`、`plans`、`design`、`acceptance`、`operations` 子目录，且每个目录有 README。
 5. `openspec/config.yaml` 存在，且 OpenSpec changes 与 specs 有固定目录。
 6. `LICENSE` 与 `CONTRIBUTING.md` 存在，项目具备基础开源使用说明。
 7. README 能够说明本目录定位、功能、结构、角色、OpenSpec 使用方式和验收标准。
