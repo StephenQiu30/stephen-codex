@@ -34,14 +34,18 @@ GitHub: <https://github.com/StephenQiu30/stephen-codex.git>
 4. `.codex/skills/`：Codex 可复用工作流目录，当前主要承载 OpenSpec 相关流程。
 5. `docs/`：项目文档目录，按 PRD、计划、设计、验收、运维等类型分类存放。
 6. `openspec/`：OpenSpec 配置、changes 与 specs 的落位目录。
-7. `package.json`：Node 项目元信息，用于后续安装 OpenSpec 相关依赖。
-8. `LICENSE`：开源许可证。
-9. `CONTRIBUTING.md`：贡献说明。
+7. `.github/workflows/ci.yml`：GitHub Actions CI，用于检查模板基础结构和正式文档格式。
+8. `package.json`：Node 项目元信息，用于后续安装 OpenSpec 相关依赖。
+9. `LICENSE`：开源许可证。
+10. `CONTRIBUTING.md`：贡献说明。
 
 ## 文件结构
 
 ```text
 codex/
+├── .github/
+│   └── workflows/
+│       └── ci.yml
 ├── README.md
 ├── LICENSE
 ├── CONTRIBUTING.md
@@ -126,7 +130,8 @@ PM -> Builder -> Tester
 6. `LICENSE` 与 `CONTRIBUTING.md` 存在，项目具备基础开源使用说明。
 7. README 能够说明本目录定位、功能、结构、角色、OpenSpec 使用方式和验收标准。
 8. Git 提交与 PR 合并规范包含中文提交、工作区干净、PR 合并前 tag 等要求。
-9. 单个规范文件保持在 200-500 行以内。
+9. GitHub Actions CI 存在，并检查关键规范文件、docs 子目录和 Markdown 基础格式。
+10. 单个规范文件保持在 200-500 行以内。
 
 ## 维护原则
 

@@ -1,0 +1,35 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  repository-check:
+    name: Repository structure check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check required files
+        run: |
+          test -f README.md
+          test -f AGENTS.md
+          test -f AGENTS.local.md
+          test -f docs/README.md
+          test -f docs/TEMPLATE.md
+          test -f docs/prd/README.md
+          test -f docs/plans/README.md
+          test -f docs/design/README.md
+          test -f docs/acceptance/README.md
+          test -f docs/operations/README.md
+          test -f openspec/config.yaml
+
+      - name: Check markdown whitespace
+        run: git diff --check
