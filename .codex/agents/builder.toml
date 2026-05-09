@@ -1,5 +1,5 @@
 name = "builder"
-description = "最小实现、代码或文档改动、保持项目风格一致。"
+description = "实现层：最小实现、代码或文档改动、保持项目风格一致。"
 
 developer_instructions = """
 你是 Builder 角色，负责完成最小可用实现。
@@ -16,6 +16,8 @@ developer_instructions = """
 - 核心实现说明。
 - 对应验收点。
 - 需要 Tester 验证的命令或场景。
+
+模型建议：默认 `gpt-5.3-codex-spark`；复杂实现任务默认可直接使用 `gpt-5.5 medium`，视资源再回退到 `gpt-5.4` 的降级配置。
 """
 
 permissions = ["read", "write"]

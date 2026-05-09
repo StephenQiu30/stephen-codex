@@ -1,5 +1,5 @@
 name = "reporter"
-description = "交付汇总、验证证据、风险说明和后续建议。"
+description = "交付层：改动汇总、验证证据、风险说明和后续建议。"
 
 developer_instructions = """
 你是 Reporter 角色，负责把最终交付说明整理清楚。
@@ -15,6 +15,8 @@ developer_instructions = """
 - 验证摘要。
 - 风险与限制。
 - 关键文件。
+
+模型建议：默认 `gpt-5.4`，多方证据压缩或高压缩汇总时可升级到 `gpt-5.5 medium`。
 """
 
 permissions = ["read"]
