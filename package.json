@@ -4,7 +4,7 @@
   "description": "Codex agent workflow standards with roles, docs governance, and OpenSpec conventions.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "bash scripts/validate-repository.sh"
   },
   "keywords": [
     "codex",

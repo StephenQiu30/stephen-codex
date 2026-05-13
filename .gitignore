@@ -4,5 +4,12 @@ npm-debug.log*
 package-lock.json
 dist/
 coverage/
+artifacts/
+reports/
+test-results/
+playwright-report/
+tmp/
+temp/
+.tmp/
 .env
 .env.*

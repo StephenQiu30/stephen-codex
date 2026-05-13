@@ -19,6 +19,19 @@
 5. 无法先写测试时，应在交付说明中解释原因，并补充可执行的验证方式、手工验证证据或后续测试补齐点。
 6. 测试覆盖应优先保护核心业务规则、边界条件、回归缺陷和 OpenSpec change 的验收标准。
 
+## Test-First PR 提交规范
+
+1. 功能 PR 的重点不是提交代码量，而是先用测试定义需求、边界和验收标准；实现代码可以由 Agent 生成，但研发人员必须负责测试设计、结果验证和代码审查。
+2. 功能分支必须按以下顺序组织提交：`test: add failing tests for xxx`、`impl: make xxx tests pass`、`refactor: clean up without behavior changes`、`chore: config / formatting / generated files`。
+3. `test:` commit 只允许包含测试相关内容，例如 `Tests/`、`Fixtures/`、`Mocks/`、期望结果和测试辅助工具；测试应表达需求和验收标准，覆盖主要路径和关键边界，并且在没有实现 commit 时原则上应失败。
+4. `test:` commit 不允许包含业务实现、生产代码改动或为通过测试而提前加入的功能逻辑。
+5. `impl:` commit 只提交让测试通过的最小实现，不夹带无关功能、不做大范围重构、不实现未被测试覆盖的行为。
+6. `refactor:` commit 只能在测试已通过后清理命名、结构、重复逻辑或可读性，不改变已验证行为。
+7. `chore:` commit 只放配置、格式化、锁文件或生成文件等非业务变更；不得把功能实现或测试需求混入 `chore:`。
+8. 不合格情况包括：测试和实现混在一个 commit、先写实现后补测试、实现超出测试覆盖范围、PR 夹带无关 UI、网络、缓存、埋点或过程产物。
+9. 文档修改、纯格式化、CI 配置修复、依赖锁文件更新、删除无用代码和紧急线上修复可不强制 test-first，但必须在 PR 中说明原因；紧急修复后续必须补测试。
+10. 没有清晰测试的功能 PR，不进入实现代码审查；Agent 只能协助生成实现，测试、边界和最终质量由提交人负责。
+
 ## SMART 执行规范
 
 1. `Specific`：需求、任务和 OpenSpec change 必须描述清楚要解决的问题、目标用户、影响范围和不做事项，避免模糊表述。
@@ -94,9 +107,11 @@
 
 1. 每次完成较大的 OpenSpec change 后，应先完成测试、验证、归档和归档后校验，再使用中文 Git 提交信息提交本次改动。
 2. 提交前必须检查工作区范围，确认只包含本次 change 相关文件；无关修改不得混入提交。
-3. 提交信息应简洁说明本次 change 的核心结果，优先使用 `feat:`、`fix:`、`docs:`、`test:`、`chore:` 等类型前缀。
-4. 提交后应再次检查工作区状态，确认没有遗漏文件、未暂存文件或意外生成物。
-5. 如果用户明确要求暂不提交，应在交付说明中记录原因、当前工作区状态和后续提交建议。
+3. 功能 PR 必须优先使用 `test:`、`impl:`、`refactor:`、`chore:` 的提交顺序；单个提交应保持职责单一，不能混合测试、实现、重构和配置变更。
+4. 非功能类提交信息应简洁说明核心结果，优先使用 `fix:`、`docs:`、`ci:`、`chore:` 等类型前缀。
+5. 中间产物、临时文件、一次性报告、本地缓存、测试输出目录和调试日志不需要提交到 GitHub；如果必须保留长期证据，应沉淀为正式 docs 文档或验收记录。
+6. 提交后应再次检查工作区状态，确认没有遗漏文件、未暂存文件或意外生成物。
+7. 如果用户明确要求暂不提交，应在交付说明中记录原因、当前工作区状态和后续提交建议。
 
 ## PR 提交与合并规范
 
@@ -107,6 +122,65 @@
 5. 每次 PR 合并前必须先给当前目标分支状态打 tag，作为合并前回滚点；tag 名称应能体现合并对象和日期，例如 `pre-merge-pr12-20260508`。
 6. 多个 PR 需要合并时，应按用户指定顺序逐个合并；每合并一个 PR 后都要重新检查后续 PR 的冲突、CI 和合并状态。
 7. PR 合并后应同步本地分支状态，并执行必要的仓库健康检查，确认没有合并后遗留的工作区污染或格式问题。
+8. 功能 PR 描述必须包含 Test-first Evidence、Tests added、Commands run、Result、Agent Usage 和 Reviewer Checklist；Reviewer 应先审 `test:` commit，再审 `impl:` commit。
+9. CI 必须包含完整测试入口，至少运行仓库结构检查、Markdown 空白检查和 `npm test`；项目增加真实单元、集成、UI、快照或性能测试后，应把对应命令接入 `npm test` 或 CI 明确步骤。
+
+## PR 模板要求
+
+功能 PR 描述必须覆盖以下内容：
+
+````markdown
+# PR Summary
+
+## Test-first Evidence
+
+- Failing test commit:
+- Test fails before implementation:
+  - [ ] Yes
+  - [ ] No
+  - [ ] Not applicable
+
+## Tests added
+
+- [ ] Unit
+- [ ] Integration
+- [ ] UI
+- [ ] Snapshot
+- [ ] Performance
+
+## Commands run
+
+```bash
+# test command
+```
+
+## Result
+
+- Failed before implementation
+- Passed after implementation
+
+## Agent Usage
+
+Human-authored:
+- Acceptance criteria:
+- Test cases:
+- Edge cases:
+
+Agent-generated:
+- Implementation:
+- Refactor:
+- Boilerplate:
+
+## Reviewer Checklist
+
+- [ ] Test commit reviewed first
+- [ ] Tests express requirement
+- [ ] Edge cases covered
+- [ ] Implementation is minimal
+- [ ] No unrelated changes
+- [ ] Agent code reviewed
+- [ ] CI passed
+````
 
 ## 交付输出要求
 

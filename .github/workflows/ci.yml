@@ -18,18 +18,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Check required files
-        run: |
-          test -f README.md
-          test -f AGENTS.md
-          test -f AGENTS.local.md
-          test -f docs/README.md
-          test -f docs/TEMPLATE.md
-          test -f docs/prd/README.md
-          test -f docs/plans/README.md
-          test -f docs/design/README.md
-          test -f docs/acceptance/README.md
-          test -f docs/operations/README.md
-          test -f openspec/config.yaml
+        run: bash scripts/validate-repository.sh
 
-      - name: Check markdown whitespace
-        run: git diff --check
+      - name: Run complete test suite
+        run: npm test
