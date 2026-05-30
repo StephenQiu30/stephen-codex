@@ -33,7 +33,7 @@ GitHub: <https://github.com/StephenQiu30/stephen-codex.git>
 2. `AGENTS.local.md`：当前项目中的局部规范配置，用于和全局规则区分。
 3. `WORKFLOW.md`：OpenAI Symphony 风格的 Linear ticket 调度契约与 per-ticket Agent SOP。
 4. `.codex/agents/`：Codex 角色定义目录。
-5. `.codex/skills/`：Codex 可复用工作流目录，当前主要承载 OpenSpec 相关流程。
+5. `.codex/skills/`：Codex 可复用工作流目录，当前承载 OpenSpec 与 harness 相关流程。
 6. `docs/`：项目文档目录，按 PRD、计划、设计、验收、运维等类型分类存放。
 7. `openspec/`：OpenSpec 配置、changes 与 specs 的落位目录。
 8. `.github/workflows/ci.yml`：GitHub Actions CI，用于检查模板基础结构和正式文档格式。
@@ -62,6 +62,10 @@ codex/
 │   │   ├── tester.toml
 │   │   └── reporter.toml
 │   └── skills/
+│       ├── harness-setup/
+│       ├── harness-verify/
+│       ├── openspec-apply-change/
+│       └── ...
 ├── docs/
 │   ├── README.md
 │   ├── TEMPLATE.md
@@ -131,14 +135,15 @@ PM -> Builder -> Tester
 1. `AGENTS.md` 存在，并包含 MVP、TDD、SMART、OpenSpec change 提交收口、角色协作和交付输出要求。
 2. `AGENTS.local.md` 存在，并说明它是项目局部规范配置文件。
 3. `WORKFLOW.md` 存在，并包含 `tracker.kind: linear`、`project_slug`、`## Codex Workpad` 和 `Human Review` 编排规则。
-4. `.codex/agents/` 中存在 `pm`、`explorer`、`builder`、`tester`、`reporter` 五类角色。
-5. `docs/` 中存在 `TEMPLATE.md`、`prd`、`plans`、`design`、`acceptance`、`operations` 子目录，且每个目录有 README。
-6. `openspec/config.yaml` 存在，且 OpenSpec changes 与 specs 有固定目录。
-7. `LICENSE` 与 `CONTRIBUTING.md` 存在，项目具备基础开源使用说明。
-8. README 能够说明本目录定位、功能、结构、角色、OpenSpec 使用方式和验收标准。
-9. Git 提交与 PR 合并规范包含中文提交、工作区干净、PR 合并前 tag 等要求。
-10. GitHub Actions CI 存在，并检查关键规范文件、docs 子目录、`WORKFLOW.md` 和 Markdown 基础格式。
-11. 单个规范文件保持在 200-500 行以内。
+4. `.codex/skills/` 中存在 `harness-setup` 与 `harness-verify`，用于补齐启动验证 harness 与整理验收证据。
+5. `.codex/agents/` 中存在 `pm`、`explorer`、`builder`、`tester`、`reporter` 五类角色。
+6. `docs/` 中存在 `TEMPLATE.md`、`prd`、`plans`、`design`、`acceptance`、`operations` 子目录，且每个目录有 README。
+7. `openspec/config.yaml` 存在，且 OpenSpec changes 与 specs 有固定目录。
+8. `LICENSE` 与 `CONTRIBUTING.md` 存在，项目具备基础开源使用说明。
+9. README 能够说明本目录定位、功能、结构、角色、OpenSpec 使用方式和验收标准。
+10. Git 提交与 PR 合并规范包含中文提交、工作区干净、PR 合并前 tag 等要求。
+11. GitHub Actions CI 存在，并检查关键规范文件、docs 子目录、`WORKFLOW.md`、harness skills 和 Markdown 基础格式。
+12. 单个规范文件保持在 200-500 行以内。
 
 ## 维护原则
 
