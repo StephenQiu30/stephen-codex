@@ -25,6 +25,12 @@ grep -q "test: add failing tests for xxx" AGENTS.md
 grep -q "impl: make xxx tests pass" AGENTS.md
 grep -q "中间产物" AGENTS.md
 grep -q "npm test" AGENTS.md
+grep -q "## Symphony-ready 编排原则" AGENTS.md
+grep -q "Linear ticket" AGENTS.md
+grep -q "## Codex Workpad" AGENTS.md
+grep -q "Human Review" AGENTS.md
+grep -q "Rework" AGENTS.md
+grep -q "Playwright" AGENTS.md
 grep -q "Test-first Evidence" .github/pull_request_template.md
 
 git diff --check
