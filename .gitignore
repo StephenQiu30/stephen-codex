@@ -5,6 +5,7 @@ package-lock.json
 dist/
 coverage/
 artifacts/
+.harness/
 reports/
 test-results/
 playwright-report/

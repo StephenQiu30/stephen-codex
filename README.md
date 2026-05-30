@@ -36,10 +36,11 @@ GitHub: <https://github.com/StephenQiu30/stephen-codex.git>
 5. `.codex/skills/`：Codex 可复用工作流目录，当前承载 OpenSpec 与 harness 相关流程。
 6. `docs/`：项目文档目录，按 PRD、计划、设计、验收、运维等类型分类存放。
 7. `openspec/`：OpenSpec 配置、changes 与 specs 的落位目录。
-8. `.github/workflows/ci.yml`：GitHub Actions CI，用于检查模板基础结构和正式文档格式。
-9. `package.json`：Node 项目元信息，用于后续安装 OpenSpec 相关依赖。
-10. `LICENSE`：开源许可证。
-11. `CONTRIBUTING.md`：贡献说明。
+8. `examples/symphony-harness-smoke/`：用于验证 `Harness -> Orchestration -> Linear` 闭环的最小项目。
+9. `.github/workflows/ci.yml`：GitHub Actions CI，用于检查模板基础结构和正式文档格式。
+10. `package.json`：Node 项目元信息，用于后续安装 OpenSpec 相关依赖。
+11. `LICENSE`：开源许可证。
+12. `CONTRIBUTING.md`：贡献说明。
 
 ## 文件结构
 
@@ -75,6 +76,8 @@ codex/
 │   ├── design/
 │   ├── acceptance/
 │   └── operations/
+├── examples/
+│   └── symphony-harness-smoke/
 ├── openspec/
 │   ├── config.yaml
 │   ├── changes/
@@ -137,14 +140,15 @@ PM -> Builder -> Tester
 2. `AGENTS.local.md` 存在，并说明它是项目局部规范配置文件。
 3. `WORKFLOW.md` 存在，并包含 `tracker.kind: linear`、`project_slug`、`## Codex Workpad` 和 `Human Review` 编排规则。
 4. `.codex/skills/` 中存在 `harness-local-server`、`harness-playwright-evidence` 与 `harness-linear-loop`，用于补齐本地启动、浏览器证据和 Linear 闭环。
-5. `.codex/agents/` 中存在 `pm`、`explorer`、`builder`、`tester`、`reporter` 五类角色。
-6. `docs/` 中存在 `TEMPLATE.md`、`prd`、`plans`、`design`、`acceptance`、`operations` 子目录，且每个目录有 README。
-7. `openspec/config.yaml` 存在，且 OpenSpec changes 与 specs 有固定目录。
-8. `LICENSE` 与 `CONTRIBUTING.md` 存在，项目具备基础开源使用说明。
-9. README 能够说明本目录定位、功能、结构、角色、OpenSpec 使用方式和验收标准。
-10. Git 提交与 PR 合并规范包含中文提交、工作区干净、PR 合并前 tag 等要求。
-11. GitHub Actions CI 存在，并检查关键规范文件、docs 子目录、`WORKFLOW.md`、harness skills 和 Markdown 基础格式。
-12. 单个规范文件保持在 200-500 行以内。
+5. `examples/symphony-harness-smoke/` 存在，并能演示 local server、Playwright evidence 与 Workpad handoff。
+6. `.codex/agents/` 中存在 `pm`、`explorer`、`builder`、`tester`、`reporter` 五类角色。
+7. `docs/` 中存在 `TEMPLATE.md`、`prd`、`plans`、`design`、`acceptance`、`operations` 子目录，且每个目录有 README。
+8. `openspec/config.yaml` 存在，且 OpenSpec changes 与 specs 有固定目录。
+9. `LICENSE` 与 `CONTRIBUTING.md` 存在，项目具备基础开源使用说明。
+10. README 能够说明本目录定位、功能、结构、角色、OpenSpec 使用方式和验收标准。
+11. Git 提交与 PR 合并规范包含中文提交、工作区干净、PR 合并前 tag 等要求。
+12. GitHub Actions CI 存在，并检查关键规范文件、docs 子目录、`WORKFLOW.md`、harness skills、smoke example 和 Markdown 基础格式。
+13. 单个规范文件保持在 200-500 行以内。
 
 ## 维护原则
 
