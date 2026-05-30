@@ -6,6 +6,8 @@ required_files=(
   "AGENTS.md"
   "AGENTS.local.md"
   "WORKFLOW.md"
+  ".codex/skills/harness-setup/SKILL.md"
+  ".codex/skills/harness-verify/SKILL.md"
   ".github/pull_request_template.md"
   "docs/README.md"
   "docs/TEMPLATE.md"
@@ -37,6 +39,17 @@ grep -q "kind: linear" WORKFLOW.md
 grep -q "project_slug" WORKFLOW.md
 grep -q "## Codex Workpad" WORKFLOW.md
 grep -q "Human Review" WORKFLOW.md
+grep -q "name: harness-setup" .codex/skills/harness-setup/SKILL.md
+grep -q "one-command startup" .codex/skills/harness-setup/SKILL.md
+grep -q "health check" .codex/skills/harness-setup/SKILL.md
+grep -q "env.example" .codex/skills/harness-setup/SKILL.md
+grep -q "logs" .codex/skills/harness-setup/SKILL.md
+grep -q "name: harness-verify" .codex/skills/harness-verify/SKILL.md
+grep -q "Playwright" .codex/skills/harness-verify/SKILL.md
+grep -q "screenshot" .codex/skills/harness-verify/SKILL.md
+grep -q "trace" .codex/skills/harness-verify/SKILL.md
+grep -q "## Codex Workpad" .codex/skills/harness-verify/SKILL.md
+grep -q "Human Review" .codex/skills/harness-verify/SKILL.md
 grep -q "Test-first Evidence" .github/pull_request_template.md
 
 git diff --check
