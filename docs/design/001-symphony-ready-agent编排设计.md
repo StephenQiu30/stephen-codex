@@ -20,7 +20,7 @@ inputs:
   - "https://www.youtube.com/watch?v=M_AmPWmkpwA"
 outputs:
   - "AGENTS.md 的 Symphony-ready 编排规范优化方向"
-  - "未来 WORKFLOW.md 模板的职责边界"
+  - "WORKFLOW.md 模板的职责边界与根目录接入要求"
   - "Linear ticket 状态机、Workpad、Harness 与 Human Review 门禁设计"
 triggers:
   - "新增或调整 Codex Agent 自动化开发工作流"
@@ -45,7 +45,7 @@ downstream:
 
 1. 将 Codex 自动化开发单位从会话提升为 Linear ticket。
 2. 在 `AGENTS.md` 中定义稳定的 ticket-level 编排规则，供 Codex 长期遵循。
-3. 为未来 `WORKFLOW.md` 留出清晰职责：调度配置放在 `WORKFLOW.md`，长期行为准则放在 `AGENTS.md`。
+3. 在根目录接入 `WORKFLOW.md`，并保持职责清晰：调度配置放在 `WORKFLOW.md`，长期行为准则放在 `AGENTS.md`。
 4. 定义最小 harness 要求：一键启动、统一验证入口、日志和配置说明、验收证据规范。
 5. 将 Playwright、截图、trace、录屏作为 UI 和前端任务的推荐验收能力。
 6. 保持与 Claude 模板等价，确保双模板后续可以同步演进。
@@ -183,8 +183,8 @@ Codex ticket-level 执行顺序固定为：
 ### 5.2 输出文档
 
 1. 本设计文档。
-2. 后续 `AGENTS.md` 编排规范优化。
-3. 后续 `WORKFLOW.md` 模板。
+2. `AGENTS.md` 编排规范优化。
+3. 根目录 `WORKFLOW.md` 模板。
 
 ### 5.3 下游文档
 
@@ -197,7 +197,8 @@ Codex ticket-level 执行顺序固定为：
 2. `AGENTS.md` 明确 Linear 状态机、workpad、Human Review、Rework 和 Blocked 规则。
 3. 文档边界清晰：长期规则在 `AGENTS.md`，项目调度配置在 `WORKFLOW.md`。
 4. Codex 与 Claude 模板保持等价，只在文件名、workpad 标题和生态路径上不同。
-5. 第一版不会强制所有项目接入完整 runner 或视频上传，但会把 harness 能力列为推荐演进方向。
+5. 根目录 `WORKFLOW.md` 对齐官方 YAML front matter 与 Markdown prompt body 的编排结构。
+6. 第一版不会强制所有项目接入完整 runner 或视频上传，但会把 harness 能力列为推荐演进方向。
 
 ## 7. 风险与边界
 

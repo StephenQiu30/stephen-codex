@@ -18,21 +18,22 @@ inputs:
   - "scripts/validate-repository.sh"
 outputs:
   - "AGENTS.md 新增 Symphony-ready 编排规范"
+  - "WORKFLOW.md 接入官方风格的 Linear ticket 调度契约"
   - "scripts/validate-repository.sh 新增规范文本门禁"
 triggers:
   - "需要将 Symphony-ready 编排规范落入 Codex Agent 模板"
 downstream:
   - "AGENTS.md"
-  - "未来 WORKFLOW.md 模板"
+  - "根目录 WORKFLOW.md 模板"
 ---
 
 # Symphony-ready Agent Orchestration Implementation Plan
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** 将 OpenAI Symphony 推荐的 ticket-level 编排方式落入 Codex 模板，使 `AGENTS.md` 明确 Linear ticket、Workpad、Harness、Human Review、Rework 和 Blocked 规则。
+**Goal:** 将 OpenAI Symphony 推荐的 ticket-level 编排方式落入 Codex 模板，使 `AGENTS.md` 明确长期规则，并用根目录 `WORKFLOW.md` 承接 Linear ticket 调度契约。
 
-**Architecture:** 先用 `scripts/validate-repository.sh` 增加文本门禁制造红灯，再更新 `AGENTS.md` 让门禁变绿。`AGENTS.md` 承载长期行为准则，未来项目级 `WORKFLOW.md` 只负责 Linear project、workspace、hooks 和 agent command 等实例配置。
+**Architecture:** 先用 `scripts/validate-repository.sh` 增加文本门禁制造红灯，再更新 `AGENTS.md` 让门禁变绿。`AGENTS.md` 承载长期行为准则，根目录 `WORKFLOW.md` 负责 Linear project、workspace、hooks 和 agent command 等实例配置。
 
 **Tech Stack:** Markdown, Bash, npm script, git.
 
