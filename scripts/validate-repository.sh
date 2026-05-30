@@ -5,6 +5,7 @@ required_files=(
   "README.md"
   "AGENTS.md"
   "AGENTS.local.md"
+  "WORKFLOW.md"
   ".github/pull_request_template.md"
   "docs/README.md"
   "docs/TEMPLATE.md"
@@ -31,6 +32,11 @@ grep -q "## Codex Workpad" AGENTS.md
 grep -q "Human Review" AGENTS.md
 grep -q "Rework" AGENTS.md
 grep -q "Playwright" AGENTS.md
+grep -q "tracker:" WORKFLOW.md
+grep -q "kind: linear" WORKFLOW.md
+grep -q "project_slug" WORKFLOW.md
+grep -q "## Codex Workpad" WORKFLOW.md
+grep -q "Human Review" WORKFLOW.md
 grep -q "Test-first Evidence" .github/pull_request_template.md
 
 git diff --check
