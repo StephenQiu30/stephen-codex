@@ -62,8 +62,9 @@ codex/
 │   │   ├── tester.toml
 │   │   └── reporter.toml
 │   └── skills/
-│       ├── harness-setup/
-│       ├── harness-verify/
+│       ├── harness-local-server/
+│       ├── harness-playwright-evidence/
+│       ├── harness-linear-loop/
 │       ├── openspec-apply-change/
 │       └── ...
 ├── docs/
@@ -135,7 +136,7 @@ PM -> Builder -> Tester
 1. `AGENTS.md` 存在，并包含 MVP、TDD、SMART、OpenSpec change 提交收口、角色协作和交付输出要求。
 2. `AGENTS.local.md` 存在，并说明它是项目局部规范配置文件。
 3. `WORKFLOW.md` 存在，并包含 `tracker.kind: linear`、`project_slug`、`## Codex Workpad` 和 `Human Review` 编排规则。
-4. `.codex/skills/` 中存在 `harness-setup` 与 `harness-verify`，用于补齐启动验证 harness 与整理验收证据。
+4. `.codex/skills/` 中存在 `harness-local-server`、`harness-playwright-evidence` 与 `harness-linear-loop`，用于补齐本地启动、浏览器证据和 Linear 闭环。
 5. `.codex/agents/` 中存在 `pm`、`explorer`、`builder`、`tester`、`reporter` 五类角色。
 6. `docs/` 中存在 `TEMPLATE.md`、`prd`、`plans`、`design`、`acceptance`、`operations` 子目录，且每个目录有 README。
 7. `openspec/config.yaml` 存在，且 OpenSpec changes 与 specs 有固定目录。

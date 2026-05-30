@@ -143,6 +143,12 @@ Codex ticket-level 执行顺序固定为：
 
 ### 4.6 Harness 能力要求
 
+参考视频中 `Harness -> Orchestration -> Linear` 的落地思路，模板不盲目增加零散 skill，而是保留三类能形成闭环的 harness skill：
+
+1. `harness-local-server`：让项目在新 workspace 中可安装、可启动、可健康检查、可定位 logs。
+2. `harness-playwright-evidence`：用 Playwright 产出端到端证据，包括 screenshot、trace、video recording、console logs 和 network logs。
+3. `harness-linear-loop`：通过 Linear API 或 MCP 同步状态、Workpad、PR 链接与验证证据，支持 upload video evidence 时优先上传。
+
 每个复制此模板的项目应逐步具备以下能力：
 
 1. 一键启动：例如 `scripts/start-local.sh`、`make start` 或项目等价入口。
@@ -198,7 +204,8 @@ Codex ticket-level 执行顺序固定为：
 3. 文档边界清晰：长期规则在 `AGENTS.md`，项目调度配置在 `WORKFLOW.md`。
 4. Codex 与 Claude 模板保持等价，只在文件名、workpad 标题和生态路径上不同。
 5. 根目录 `WORKFLOW.md` 对齐官方 YAML front matter 与 Markdown prompt body 的编排结构。
-6. 第一版不会强制所有项目接入完整 runner 或视频上传，但会把 harness 能力列为推荐演进方向。
+6. 根目录 skills 提供 `harness-local-server`、`harness-playwright-evidence` 与 `harness-linear-loop` 三件套。
+7. 第一版不会强制所有项目接入完整 runner 或视频上传，但会把 harness 能力列为推荐演进方向。
 
 ## 7. 风险与边界
 

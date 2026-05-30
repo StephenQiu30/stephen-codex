@@ -100,8 +100,9 @@
 3. 项目应说明 `.env.example`、secret 来源、本机与 CI 差异、日志位置和常见故障处理方式。
 4. Agent 应优先使用可重复验证方式证明变更有效，包括测试输出、构建结果、接口响应、日志、截图、trace 或录屏。
 5. 前端、网页和 UI 任务推荐使用 Playwright、截图、trace 或录屏作为验收证据；第一版不强制所有项目自动上传视频到 Linear。
-6. 需要补齐或修复项目 harness 时，优先使用 `.codex/skills/harness-setup/SKILL.md`。
-7. 进入 `Human Review` 前需要整理验证证据时，优先使用 `.codex/skills/harness-verify/SKILL.md`。
+6. 需要补齐本地启动和健康检查时，优先使用 `.codex/skills/harness-local-server/SKILL.md`。
+7. UI 或前端任务需要端到端证据时，优先使用 `.codex/skills/harness-playwright-evidence/SKILL.md`。
+8. 需要同步 Linear 状态、Workpad、PR 链接和证据时，优先使用 `.codex/skills/harness-linear-loop/SKILL.md`。
 
 ## Human Review 门禁
 
