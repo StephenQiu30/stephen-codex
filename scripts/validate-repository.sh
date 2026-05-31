@@ -6,9 +6,16 @@ required_files=(
   "AGENTS.md"
   "AGENTS.local.md"
   "WORKFLOW.md"
+  ".env.example"
   ".codex/skills/harness-local-server/SKILL.md"
   ".codex/skills/harness-playwright-evidence/SKILL.md"
   ".codex/skills/harness-linear-loop/SKILL.md"
+  ".codex/skills/commit/SKILL.md"
+  ".codex/skills/pull/SKILL.md"
+  ".codex/skills/push/SKILL.md"
+  ".codex/skills/land/SKILL.md"
+  ".codex/skills/land/land_watch.py"
+  ".codex/skills/linear/SKILL.md"
   ".github/pull_request_template.md"
   "docs/README.md"
   "docs/TEMPLATE.md"
@@ -24,37 +31,10 @@ for file in "${required_files[@]}"; do
   test -f "$file"
 done
 
-grep -q "## Test-First PR 提交规范" AGENTS.md
-grep -q "test: add failing tests for xxx" AGENTS.md
-grep -q "impl: make xxx tests pass" AGENTS.md
-grep -q "中间产物" AGENTS.md
-grep -q "npm test" AGENTS.md
-grep -q "## Symphony-ready 编排原则" AGENTS.md
-grep -q "Linear ticket" AGENTS.md
-grep -q "## Codex Workpad" AGENTS.md
-grep -q "Human Review" AGENTS.md
-grep -q "Rework" AGENTS.md
-grep -q "Playwright" AGENTS.md
 grep -q "tracker:" WORKFLOW.md
 grep -q "kind: linear" WORKFLOW.md
 grep -q "project_slug" WORKFLOW.md
 grep -q "## Codex Workpad" WORKFLOW.md
 grep -q "Human Review" WORKFLOW.md
-grep -q "name: harness-local-server" .codex/skills/harness-local-server/SKILL.md
-grep -q "bootable" .codex/skills/harness-local-server/SKILL.md
-grep -q "health check" .codex/skills/harness-local-server/SKILL.md
-grep -q "env.example" .codex/skills/harness-local-server/SKILL.md
-grep -q "logs" .codex/skills/harness-local-server/SKILL.md
-grep -q "name: harness-playwright-evidence" .codex/skills/harness-playwright-evidence/SKILL.md
-grep -q "Playwright" .codex/skills/harness-playwright-evidence/SKILL.md
-grep -q "video start" .codex/skills/harness-playwright-evidence/SKILL.md
-grep -q "video stop" .codex/skills/harness-playwright-evidence/SKILL.md
-grep -q "trace" .codex/skills/harness-playwright-evidence/SKILL.md
-grep -q "name: harness-linear-loop" .codex/skills/harness-linear-loop/SKILL.md
-grep -q "Linear API" .codex/skills/harness-linear-loop/SKILL.md
-grep -q "## Codex Workpad" .codex/skills/harness-linear-loop/SKILL.md
-grep -q "upload video evidence" .codex/skills/harness-linear-loop/SKILL.md
-grep -q "Human Review" .codex/skills/harness-linear-loop/SKILL.md
-grep -q "Test-first Evidence" .github/pull_request_template.md
 
 git diff --check

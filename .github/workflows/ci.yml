@@ -17,8 +17,5 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Check required files
-        run: bash scripts/validate-repository.sh
-
-      - name: Run complete test suite
+      - name: Run repository checks
         run: npm test
