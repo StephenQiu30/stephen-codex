@@ -1,7 +1,7 @@
 {
   "name": "codex-agent-standards",
   "version": "1.0.0",
-  "description": "Codex agent workflow standards with roles, docs governance, and OpenSpec conventions.",
+  "description": "Codex agent workflow standards with roles, harness workflows, and Git/PR conventions.",
   "main": "index.js",
   "scripts": {
     "test": "bash scripts/validate-repository.sh"
@@ -9,7 +9,7 @@
   "keywords": [
     "codex",
     "agents",
-    "openspec",
+    "harness",
     "tdd",
     "smart",
     "workflow"

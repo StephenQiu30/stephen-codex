@@ -10,6 +10,7 @@ required_files=(
   ".codex/skills/harness-local-server/SKILL.md"
   ".codex/skills/harness-playwright-evidence/SKILL.md"
   ".codex/skills/harness-linear-loop/SKILL.md"
+  ".codex/skills/debug/SKILL.md"
   ".codex/skills/commit/SKILL.md"
   ".codex/skills/pull/SKILL.md"
   ".codex/skills/push/SKILL.md"
@@ -18,13 +19,11 @@ required_files=(
   ".codex/skills/linear/SKILL.md"
   ".github/pull_request_template.md"
   "docs/README.md"
-  "docs/TEMPLATE.md"
   "docs/prd/README.md"
   "docs/plans/README.md"
   "docs/design/README.md"
   "docs/acceptance/README.md"
   "docs/operations/README.md"
-  "openspec/config.yaml"
 )
 
 for file in "${required_files[@]}"; do

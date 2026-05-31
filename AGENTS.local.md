@@ -12,4 +12,4 @@
 
 1. 本项目内的角色配置放在 `.codex/agents/` 目录。
 2. 本项目内的可复用流程放在 `.codex/skills/` 目录。
-3. 本项目内的 OpenSpec 配置放在 `openspec/` 目录。
+3. 本项目不再维护额外规格配置；`docs/` 目录保留分类结构和 README 骨架。

@@ -6,14 +6,14 @@
 
 1. 修正或补充 `AGENTS.md`、`AGENTS.local.md` 中的协作规范。
 2. 优化 `.codex/agents/` 中的角色职责。
-3. 补充 `docs/` 下的 PRD、计划、设计、验收或运维文档。
-4. 改进 OpenSpec 使用说明和验收流程。
+3. 优化 `.codex/skills/` 中的 harness、Linear 和 Git 收口流程。
+4. 改进 README、WORKFLOW 或 CI 结构检查。
 
 ## 贡献原则
 
 1. 遵循 MVP，不引入当前没有使用场景的复杂流程。
-2. 保持 TDD、SMART、OpenSpec、Git/PR 规范之间的一致性。
-3. 修改 README 或 docs 时，应基于真实目录结构，不描述不存在的文件。
+2. 保持 TDD、SMART、Git/PR 规范之间的一致性。
+3. 修改 README 时，应基于真实目录结构，不描述不存在的文件。
 4. 单个文件原则上保持在 200-500 行以内。
 
 ## 提交流程
