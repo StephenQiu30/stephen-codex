@@ -24,7 +24,7 @@ GitHub: <https://github.com/StephenQiu30/stephen-codex.git>
 3. Codex 多角色协作时 PM、Explorer、Builder、Tester、Reporter 如何分工。
 4. 如何在 Codex 工作流中持续执行 MVP、TDD、SMART 规范。
 5. 如何通过 `WORKFLOW.md` 对齐 OpenAI Symphony 的 Linear ticket 编排方式。
-6. 如何使用 harness skills 补齐本地启动、浏览器证据和 Linear 闭环。
+6. 如何使用 Harness + Superpowers skills 保证 TDD、端到端证据和 Linear 闭环。
 
 ## 目录功能
 
@@ -38,6 +38,7 @@ GitHub: <https://github.com/StephenQiu30/stephen-codex.git>
 8. `package.json`：Node 项目元信息和验证入口。
 9. `LICENSE`：开源许可证。
 10. `CONTRIBUTING.md`：贡献说明。
+11. `scripts/vendor-superpowers-skills.sh`：从 obra/superpowers 更新 `.codex/skills/`（勿用 `npx skills add`）。
 
 ## 文件结构
 
@@ -63,6 +64,10 @@ codex/
 │       ├── harness-local-server/
 │       ├── harness-playwright-evidence/
 │       ├── harness-linear-loop/
+│       ├── harness-quality-gate/
+│       ├── test-driven-development/
+│       ├── using-superpowers/
+│       ├── verification-before-completion/
 │       ├── debug/
 │       ├── commit/
 │       ├── pull/
