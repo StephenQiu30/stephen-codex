@@ -37,6 +37,7 @@ agent:
     agent:codex: codex
     agent:claude: claude
     agent:cursor: cursor
+    agent:gemini: gemini
 codex:
   command: codex --config shell_environment_policy.inherit=all --config 'model="gpt-5.5"' --config model_reasoning_effort=xhigh app-server
   approval_policy: never
@@ -47,6 +48,8 @@ claude:
   command: claude -p --dangerously-skip-permissions --output-format stream-json --include-partial-messages --verbose
 cursor:
   command: cursor-agent -p --force --sandbox disabled
+gemini:
+  command: gemini --skip-trust --approval-mode yolo
 ---
 
 You are working on a Linear ticket `{{ issue.identifier }}`
@@ -82,9 +85,9 @@ Instructions:
 
 Work only in the provided repository copy. Do not touch any other path.
 
-## Prerequisite: Linear MCP or `linear_graphql` tool is available
+## Prerequisite: Linear access is available
 
-The agent should be able to talk to Linear, either via a configured Linear MCP server or injected `linear_graphql` tool. If none are present, stop and ask the user to configure Linear.
+The agent should be able to talk to Linear, either via a configured Linear MCP server, an injected `linear_graphql` tool, or the `LINEAR_API_KEY` environment variable with direct GraphQL HTTP requests to `https://api.linear.app/graphql`. If none are present, record the missing Linear access in the workpad and move the issue to `Blocked`.
 
 ## Default posture
 
