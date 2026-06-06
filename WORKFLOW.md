@@ -224,6 +224,8 @@ Allowed commit types are fixed: `test:`, `docs:`, `impl:`, `chore:`, `feat:`, an
 
 Every PR body must follow the repository pull request template and make the test-first story reviewable before `Human Review`.
 
+PR descriptions must be written as valid Markdown: use heading levels for each required section, bullets or numbered lists for grouped details, fenced code blocks for commands/output, and GitHub task-list checkboxes for reviewer checklist items. Do not submit plain-text blobs, malformed headings, or ad-hoc formatting that does not render cleanly on GitHub.
+
 Required PR sections:
 
 - `PR Summary`: concise scope, behavior changed, and impact.
@@ -304,7 +306,7 @@ Use this only when completion is blocked by missing required tools, non-GitHub a
     - Read the PR `Manual QA Plan` comment (when present) and use it to sharpen UI/runtime test coverage for the current change.
     - Run the full PR feedback sweep protocol.
     - Confirm PR checks are passing (green) after the latest changes.
-    - Confirm the PR body includes Test-first Evidence, Tests added, Commands run, Result, Agent Usage, and Reviewer Checklist sections with current data.
+    - Confirm the PR body is valid Markdown and includes Test-first Evidence, Tests added, Commands run, Result, Agent Usage, and Reviewer Checklist sections with current data.
     - Confirm every required ticket-provided validation/test-plan item is explicitly marked complete in the workpad.
     - Repeat this check-address-verify loop until no outstanding comments remain and checks are fully passing.
     - Re-open and refresh the workpad before state transition so `Plan`, `Acceptance Criteria`, and `Validation` exactly match completed work.
