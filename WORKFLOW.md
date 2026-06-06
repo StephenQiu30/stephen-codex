@@ -24,11 +24,8 @@ hooks:
   after_create: |
     target_branch="${SYMPHONY_TARGET_BRANCH:-main}"
     git clone --depth 1 --branch "$target_branch" "$SOURCE_REPO_URL" .
-    if command -v mise >/dev/null 2>&1; then
-      cd elixir && mise trust && mise exec -- mix deps.get
-    fi
   before_remove: |
-    cd elixir && mise exec -- mix workspace.before_remove
+    git status --short || true
 agent:
   default_runtime: codex
   max_concurrent_agents: 10
