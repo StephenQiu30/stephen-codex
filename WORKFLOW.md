@@ -37,6 +37,7 @@ agent:
     agent:codex: codex
     agent:claude: claude
     agent:cursor: cursor
+    agent:gemini: gemini
 codex:
   command: codex --config shell_environment_policy.inherit=all --config 'model="gpt-5.5"' --config model_reasoning_effort=xhigh app-server
   approval_policy: never
@@ -47,6 +48,9 @@ claude:
   command: claude -p --dangerously-skip-permissions --output-format stream-json --include-partial-messages --verbose
 cursor:
   command: cursor-agent -p --force --sandbox disabled
+gemini:
+  command: gemini-agent-app
+  protocol: app-server
 ---
 
 You are working on a Linear ticket `{{ issue.identifier }}`
