@@ -22,7 +22,7 @@ workspace:
   root: "$SYMPHONY_WORKSPACE_ROOT"
 hooks:
   after_create: |
-    target_branch="${SYMPHONY_TARGET_BRANCH:-feature/video-workflow}"
+    target_branch="${SYMPHONY_TARGET_BRANCH:-main}"
     git clone --depth 1 --branch "$target_branch" "$SOURCE_REPO_URL" .
     if command -v mise >/dev/null 2>&1; then
       cd elixir && mise trust && mise exec -- mix deps.get
@@ -49,8 +49,7 @@ claude:
 cursor:
   command: cursor-agent -p --force --sandbox disabled
 gemini:
-  command: gemini-agent-app
-  protocol: app-server
+  command: gemini
 ---
 
 You are working on a Linear ticket `{{ issue.identifier }}`
