@@ -1,254 +1,95 @@
 # AGENTS.md
 
-本文件用于存放项目开发过程中的规范性要求。
+本文件记录 Codex 侧长期稳定的项目协作规范。项目级差异放在 `AGENTS.local.md`、`.codex/agents/*`、`.codex/skills/*` 或 `WORKFLOW.md`。
 
-## 项目开发原则
+## 核心原则
 
-1. 项目开发遵循 MVP 原则，以最小可用功能闭环为优先，不对功能、架构、流程或文档进行过度设计。
-2. 单个文件应保持清晰、可维护，原则上不要超过 200-500 行；当文件持续膨胀时，应按职责拆分为更小的模块。
-3. 项目开发遵循 TDD 思想，新增或修改功能时优先使用红绿测试流程：先编写失败测试，再实现最小代码使测试通过，最后在测试保护下进行必要重构。
-4. 项目开发遵循 SMART 软件工程思想，需求、任务和验收标准应尽量做到具体、可衡量、可达成、相关且有明确时间或阶段边界。
-5. 每次完成较大的任务后，必须完成实现、测试和验证，再使用中文 Git 提交信息提交，保持工作区干净。
+1. 以可验证的最小闭环为优先，避免过度设计和无关扩展。
+2. 先读现有代码和规范，再设计方案；优先复用项目既有结构、命名和工具链。
+3. 需求、计划和验收遵循 SMART：具体、可衡量、可达成、相关、有阶段边界。
+4. 修改核心逻辑时默认 TDD：先红灯测试或可执行验收，再最小实现，最后在绿灯保护下重构。
+5. 无法先写测试时，必须说明原因，并提供替代验证证据。
+6. 只改本任务相关文件；发现有价值但越界的事项，另建 Backlog 任务，不扩大当前范围。
+7. 单文件长期目标不超过 200 行；确需更长时按职责拆分。
 
-## TDD 执行规范
+## 执行流程
 
-1. 新增功能、修复缺陷或调整核心逻辑时，应优先使用 TDD 的红绿重构流程：先写失败测试，再写最小实现，最后在测试保护下重构。
-2. 红灯阶段要让测试明确表达预期行为或缺陷复现点，避免只写无法约束实现的空测试。
-3. 绿灯阶段只实现让测试通过所需的最小代码，不借机扩大功能范围或引入过度设计。
-4. 重构阶段必须保持测试通过，重构目标应聚焦命名、结构、重复逻辑和可读性，不改变已验证行为。
-5. 无法先写测试时，应在交付说明中解释原因，并补充可执行的验证方式、手工验证证据或后续测试补齐点。
-6. 测试覆盖应优先保护核心业务规则、边界条件、回归缺陷和任务验收标准。
+复杂任务按 `Explorer -> PM -> Builder -> Tester -> Reporter` 收敛：
 
-## Test-First PR 提交规范
+1. `Explorer`：读取代码、配置、历史提交、issue/PR 评论，给出事实依据。
+2. `PM`：拆范围、验收标准、风险和不做事项。
+3. `Builder`：按最小方案实现，遵循既有风格。
+4. `Tester`：运行测试、lint、构建、E2E 或可复现手工验证。
+5. `Reporter`：汇总改动、验证、风险、提交和 PR 状态。
 
-1. 功能 PR 的重点不是提交代码量，而是先用测试定义需求、边界和验收标准；实现代码可以由 Agent 生成，但研发人员必须负责测试设计、结果验证和代码审查。
-2. 项目允许的提交类型固定为 `test:`、`docs:`、`impl:`、`feat:`、`chore:`、`refactor:`，不要新增近义类型或缩写变体。
-3. 功能分支必须遵循 test-first 提交顺序：先提交 `test:` 定义失败测试或验收约束，再提交 `impl:` 或 `feat:` 让测试通过，最后按需提交 `refactor:`、`docs:` 或 `chore:`。
-4. `test:` commit 只允许包含测试相关内容，例如 `Tests/`、`Fixtures/`、`Mocks/`、期望结果和测试辅助工具；测试应表达需求和验收标准，覆盖主要路径和关键边界，并且在没有实现 commit 时原则上应失败。
-5. `test:` commit 不允许包含业务实现、生产代码改动或为通过测试而提前加入的功能逻辑。
-6. `impl:` commit 只提交让测试通过的最小实现，不夹带无关功能、不做大范围重构、不实现未被测试覆盖的行为。
-7. `feat:` commit 用于用户可见的新能力或行为变更，也必须有前置 `test:` commit 支撑；没有测试约束时不得直接提交 `feat:`。
-8. `refactor:` commit 只能在测试已通过后清理命名、结构、重复逻辑或可读性，不改变已验证行为。
-9. `docs:` commit 只放文档、说明、示例和验收记录；不得混入测试需求或实现逻辑。
-10. `chore:` commit 只放配置、格式化、锁文件、CI 或生成文件等非业务变更；不得把功能实现或测试需求混入 `chore:`。
-11. 不合格情况包括：测试和实现混在一个 commit、先写实现后补测试、实现超出测试覆盖范围、PR 夹带无关 UI、网络、缓存、埋点或过程产物。
-12. 文档修改、纯格式化、CI 配置修复、依赖锁文件更新、删除无用代码和紧急线上修复可不强制 test-first，但必须在 PR 中说明原因；紧急修复后续必须补测试。
-13. 没有清晰测试的功能 PR，不进入实现代码审查；Agent 只能协助生成实现，测试、边界和最终质量由提交人负责。
+大任务可并行派发给专门角色；子角色只交付清洁结果、证据路径、边界和风险，主代理负责收口，不复述中间推演。
 
-## SMART 执行规范
+## TDD 与验证
 
-1. `Specific`：需求和任务必须描述清楚要解决的问题、目标用户、影响范围和不做事项，避免模糊表述。
-2. `Measurable`：每个任务都应有可验证的验收标准，优先使用测试、lint、接口响应、页面状态、日志或文档检查作为衡量依据。
-3. `Achievable`：方案应符合当前项目资源、技术栈和时间约束，优先选择 MVP 范围内可以落地的最小实现。
-4. `Relevant`：实现内容必须服务于当前需求，不引入与目标无关的重构、依赖、功能或文档扩展。
-5. `Time-bound`：较大的任务应拆成有阶段边界的步骤，明确本次完成范围、后续延迟项和交付检查点。
-6. 交付总结应回到 SMART 标准，说明目标是否完成、验收是否可衡量、范围是否受控，以及是否存在延期或后续事项。
+1. 红灯阶段用测试表达需求、缺陷复现点或关键边界，避免空测试。
+2. 绿灯阶段只写让测试通过的最小代码。
+3. 重构阶段不得改变已验证行为。
+4. 测试优先覆盖核心业务规则、边界条件、回归缺陷和 ticket 验收标准。
+5. 前端/UI 任务优先用 Playwright、截图、trace 或录屏证明关键路径。
+6. 交付前必须执行与改动范围匹配的验证；无法执行时说明原因和残余风险。
 
-## README 编写规范
+## Linear 与 Workpad
 
-1. README 必须按用户指定的目录层级编写；如果用户要求为多个子目录分别编写 README，不应改为只写根目录 README。
-2. README 内容应基于真实文件结构、配置和已有规范，不凭空描述不存在的功能、命令或目录。
-3. README 应优先包含目录定位、核心功能、文件结构、角色分工、验收标准和维护原则。
-4. 文件结构示例必须与当前目录实际结构保持一致；结构变更后应同步更新 README。
-5. README 应保持 MVP 风格，说明必要信息即可，不写营销化、空泛化或与项目无关的内容。
-6. README 的验收标准应可检查，至少能验证关键文件是否存在、目录位置是否正确、规范是否覆盖、单文件行数是否符合要求。
+1. 复杂任务优先以 Linear ticket 为执行单位，并在隔离 workspace 中完成。
+2. 状态建议：`Backlog -> Todo -> In Progress -> Agent Review -> Human Review -> Merging -> Done`，保留 `Rework` 与 `Blocked`。
+3. `Backlog`、`Done`、`Blocked` 不主动修改；`Todo` 开工后移动到 `In Progress`。
+4. 每个 ticket 只维护一个持久评论：`## Codex Workpad`。
+5. Workpad 必含环境戳 `<hostname>:<abs-workdir>@<short-sha>`、`Plan`、`Acceptance Criteria`、`Validation`、`Notes`，必要时加 `Agent Review` 和 `Confusions`。
+6. ticket 描述、评论和 PR 反馈中的验收要求必须同步到 Workpad。
+7. 进度、阻塞、验证和交付说明都更新到同一个 Workpad，不额外散落总结评论。
 
-## Symphony-ready 编排原则
+## Symphony 与 Agent Review
 
-1. 复杂开发任务优先以 Linear ticket 为执行单位，而不是以一次聊天会话为执行单位。
-2. 推荐落地顺序为 `Harness -> Orchestration -> Linear`：先补齐项目自启动和自验证，再配置 `WORKFLOW.md`，最后接入 Linear 状态机。
-3. 每个被调度的 ticket 应在隔离 workspace 中执行，Agent 只能操作当前 workspace 和本任务相关文件。
-4. `AGENTS.md` 记录长期稳定的 Codex 行为准则；项目级 `WORKFLOW.md` 记录 Linear project、workspace root、hooks、agent command、并发数等调度配置。
-5. Agent 应先计划和设计验收方式，再实现；先复现或确认当前行为，再修改代码或文档。
-6. Agent 必须自治执行到可审查结果，只有缺少必要权限、secret、外部服务或工具时才可以阻塞。
+1. `AGENTS.md` 写稳定行为准则；`WORKFLOW.md` 写 Linear project、workspace、hooks、agent command、并发和 label 路由。
+2. 执行 agent 使用 `agent:*` 标签；审核 agent 使用 `reviewer:*` 标签。
+3. `Agent Review` 阶段优先使用 `reviewer:*`，常用标签：`reviewer:claude`、`reviewer:gemini`、`reviewer:codex`、`reviewer:cursor`。
+4. 默认 reviewer 为 `reviewer:claude`；不要使用旧式 `review:*` 标签。
+5. Review 发现问题时，把意见写入 Workpad 的 `Agent Review` 区域，移动到 `Rework`，并保留/恢复实现用的 `agent:*` 标签。
+6. Review 通过后才移动到 `Human Review`。
 
-## Linear Ticket 状态机
+## Commit 规范
 
-推荐状态流为 `Backlog -> Todo -> In Progress -> Human Review -> Merging -> Done`，并保留 `Rework` 返工路径。
+1. 提交类型只使用：`test:`、`docs:`、`impl:`、`feat:`、`chore:`、`refactor:`。
+2. 功能变更保持 test-first 顺序：`test:` -> `impl:`/`feat:` -> 可选 `refactor:`/`docs:`/`chore:`。
+3. `test:` 只放测试、fixture、mock、期望和测试辅助；不得混入生产实现。
+4. `impl:` 是让测试通过的最小实现；`feat:` 是用户可见能力，必须有测试或明确例外。
+5. `refactor:` 只在测试通过后清理结构，不改变行为。
+6. 分支名用 ASCII slug，例如 `feature/ste-123-short-topic`，中文只放 PR 标题、提交信息和 Workpad。
+7. 每个提交职责单一；提交前后检查工作区，避免混入无关修改、缓存、日志和一次性产物。
 
-1. `Backlog`：不自动执行，等待人工明确移动到 `Todo`。
-2. `Todo`：可被 Symphony 或兼容 runner 拾取；拾取后应立即移动到 `In Progress`。
-3. `In Progress`：Agent 正在隔离 workspace 中执行计划、实现和验证。
-4. `Human Review`：PR、验证证据和 Workpad 已准备好，等待人工审查。
-5. `Merging`：人工批准后进入合并流程；合并前仍需检查 CI、冲突和目标分支状态。
-6. `Done`：终态，runner 不再处理。
-7. `Rework`：审查后需要返工，必须重新读取 ticket、评论、PR 反馈和当前代码状态，再重新计划。
-
-## Workpad 单一事实源
-
-1. 每个 Linear ticket 只维护一个持久评论作为进度事实源，Codex 使用标题 `## Codex Workpad`。
-2. Workpad 应包含环境戳，格式为 `<hostname>:<abs-workdir>@<short-sha>`。
-3. Workpad 必须维护 `Plan`、`Acceptance Criteria`、`Validation`、`Notes` 和必要时的 `Confusions`。
-4. Ticket 描述、评论和 PR 反馈中的验收要求必须同步到 Workpad 的验收和验证清单。
-5. 计划、进度、验证、阻塞和交付说明都更新到同一个 Workpad，不额外散落多个总结评论。
-
-## Harness 能力要求
-
-1. 项目应提供一键启动入口，例如 `scripts/start-local.sh`、`make start` 或等价命令。
-2. 项目应提供统一验证入口，例如 `npm test`、`scripts/verify.sh` 或等价命令。
-3. 项目应说明 `.env.example`、secret 来源、本机与 CI 差异、日志位置和常见故障处理方式。
-4. Agent 应优先使用可重复验证方式证明变更有效，包括测试输出、构建结果、接口响应、日志、截图、trace 或录屏。
-5. 前端、网页和 UI 任务推荐使用 Playwright、截图、trace 或录屏作为验收证据；第一版不强制所有项目自动上传视频到 Linear。
-6. Symphony / `WORKFLOW.md` 任务必须先走 `.codex/skills/harness-quality-gate/SKILL.md`，并按阶段调用 [obra/superpowers](https://github.com/obra/superpowers) skills（`using-superpowers`、`writing-plans`、`test-driven-development`、`executing-plans`、`verification-before-completion` 等）。
-7. 需要补齐本地启动和健康检查时，优先使用 `.codex/skills/harness-local-server/SKILL.md`。
-8. UI 或前端任务需要端到端证据时，优先使用 `.codex/skills/harness-playwright-evidence/SKILL.md`。
-9. 需要同步 Linear 状态、Workpad、PR 链接和证据时，优先使用 `.codex/skills/harness-linear-loop/SKILL.md`。
-
-## Human Review 门禁
+## PR 与 Human Review 门禁
 
 进入 `Human Review` 前必须满足：
 
-1. Workpad 中的计划、验收标准和验证清单已更新，完成项已勾选。
-2. Ticket 明确要求的 `Validation`、`Test Plan` 或 `Testing` 已执行。
-3. 最新提交对应的测试、lint、构建或运行时验证通过。
-4. PR 已创建或更新，并与 Linear ticket 关联。
-5. PR 检查为绿色；如果项目没有配置检查，必须明确说明 `statusCheckRollup` 或等价检查为空。
-6. PR feedback sweep 已完成，没有未处理的 actionable 评论。
-7. UI 或前端任务已提供适当的截图、trace、录屏或可复现手工证据。
+1. Workpad 计划、验收和验证清单已更新且完成项勾选。
+2. ticket 明确要求的 `Validation`、`Test Plan` 或 `Testing` 已执行。
+3. 最新提交的测试、lint、构建或运行时验证通过。
+4. PR 已创建/更新并关联 Linear；PR 检查为绿色，或明确说明没有配置检查。
+5. PR feedback sweep 已完成：顶层评论、inline review、review summary 中无未处理 actionable 反馈。
+6. PR 正文使用合法 Markdown，并包含 Summary、Test-first Evidence、Commands run、Result、Agent Usage、Reviewer Checklist。
+7. UI/前端变更提供截图、trace、录屏或可复现手工证据。
 
-## Rework 与 Blocked 规则
+## Rework 与 Blocked
 
-1. `Rework` 是完整返工流程，不是在旧分支上随手补丁。
-2. 进入 `Rework` 后必须重新读取 ticket、Workpad、PR 评论、人类反馈和最新 `origin/main`。
-3. 如果旧 PR 已关闭、已合并或实现方向不可复用，应关闭旧 PR 或明确废弃旧状态，再从 `origin/main` 新建分支。
-4. `Blocked` 只用于真实外部阻塞，例如缺少必要权限、secret、Linear/GitHub 工具、外部服务访问或不可替代的人工输入。
-5. 阻塞时必须在 Workpad 写清楚缺什么、为什么阻塞、需要人做什么；不得把普通实现困难当作阻塞。
+1. `Rework` 是完整返工：重读 ticket、Workpad、PR 评论、反馈和最新 `origin/main`，必要时从新分支开始。
+2. 返工完成后必须回到 `Agent Review`，不得直接进入 `Human Review`。
+3. `Blocked` 只用于真实外部阻塞：缺少必要权限、secret、外部服务、Linear/GitHub 工具或不可替代的人类输入。
+4. GitHub/git 问题不是默认 blocker；先尝试 remote、auth、branch、fork、PR 更新或手动链接等替代路径。
+5. 阻塞时在 Workpad 写清缺什么、为什么阻塞、需要人做什么。
 
-## 角色协作结构
+## 交付输出
 
-当前项目按 `AGENTS.md + AGENTS.local.md + .codex/agents/*.toml` 的方式组织协作规则：
-
-1. `AGENTS.md` 记录 Codex 侧长期稳定的全局协作规则、验收要求和输出格式。
-2. `AGENTS.local.md` 记录放在具体项目中的局部规范性配置，用于和全局规则区分。
-3. `.codex/agents/*.toml` 记录 Codex 侧具体角色的职责边界、输入输出和执行约束。
-4. 复杂任务优先使用多角色协作；简单任务可合并为 `PM -> Builder -> Tester` 三段式执行。
-5. 角色越专一，协作越稳定；不要让单个角色同时承担需求拆解、实现、验证和总结的全部职责。
-
-## 标准角色与职责
-
-1. `PM`：负责按 SMART 原则拆解需求、定义范围、制定验收标准、控制 MVP 边界。
-2. `Explorer`：负责读取代码、查找文件、梳理依赖、提供事实依据。
-3. `Builder`：负责制定最小实现方案，并在既有风格内完成代码或文档改动；涉及逻辑改动时应遵循 TDD 红绿重构流程。
-4. `Tester`：负责测试、lint、回归检查和 TDD 红绿重构结果确认。
-5. `Reporter`：负责汇总修改内容、验证证据、残余风险和交付说明。
-
-## 标准执行流程
-
-复杂任务按以下顺序执行：
-
-`Explorer -> PM -> Builder -> Tester -> Reporter`
-
-1. `Explorer` 先收集上下文，避免在不了解现有结构时直接设计。
-2. `PM` 根据上下文拆分任务，明确范围、验收标准和不做事项。
-3. `Builder` 只实现验收所需的最小变更。
-4. `Tester` 使用红绿测试、lint 或回归检查验证结果。
-5. `Reporter` 输出改了什么、如何验证、还有哪些风险。
-
-## Git 提交规范
-
-1. 每次完成较大的任务后，应先完成测试和验证，再使用中文 Git 提交信息提交本次改动。
-2. 提交前必须检查工作区范围，确认只包含本次任务相关文件；无关修改不得混入提交。
-3. 提交类型只使用 `test:`、`docs:`、`impl:`、`feat:`、`chore:`、`refactor:`；功能 PR 必须优先使用 `test:`、`impl:`/`feat:`、`refactor:`、`docs:`/`chore:` 的顺序。
-4. 新建任务分支必须使用 ASCII slug，并以意图前缀开头，例如 `feature/ste-123-short-topic`、`fix/ste-123-short-topic`、`chore/ste-123-short-topic`、`docs/ste-123-short-topic` 或 `refactor/ste-123-short-topic`；分支名不得包含中文或其他非 ASCII 字符。
-5. 分支 slug 应由 issue 编号加简短英文主题组成；中文标题只用于 PR 标题、提交信息和 Workpad 说明，不进入分支名。
-6. 单个提交应保持职责单一，不能混合测试、实现、重构、文档和配置变更。
-7. 中间产物、临时文件、一次性报告、本地缓存、测试输出目录和调试日志不需要提交到 GitHub。
-8. 提交后应再次检查工作区状态，确认没有遗漏文件、未暂存文件或意外生成物。
-9. 如果用户明确要求暂不提交，应在交付说明中记录原因、当前工作区状态和后续提交建议。
-
-## PR 提交与合并规范
-
-1. 创建或更新 PR 前，应先确认分支、提交范围、验证结果和是否存在可复用的已有 PR。
-2. PR 标题和描述应使用中文，说明修改内容、验证方式、影响范围和风险。
-3. 同一任务已有 PR 时，应优先更新现有 PR，不要无意义创建重复 PR。
-4. PR 合并前必须检查状态、CI、冲突和目标分支最新状态；不能只因为代码已完成就直接合并。
-5. 每次 PR 合并前必须先给当前目标分支状态打 tag，作为合并前回滚点；tag 名称应能体现合并对象和日期，例如 `pre-merge-pr12-20260508`。
-6. 多个 PR 需要合并时，应按用户指定顺序逐个合并；每合并一个 PR 后都要重新检查后续 PR 的冲突、CI 和合并状态。
-7. PR 合并后应同步本地分支状态，并执行必要的仓库健康检查，确认没有合并后遗留的工作区污染或格式问题。
-8. 功能 PR 描述必须包含 Test-first Evidence、Tests added、Commands run、Result、Agent Usage 和 Reviewer Checklist；Reviewer 应先审 `test:` commit，再审 `impl:` commit。
-9. PR 描述必须严格使用合法 Markdown 编写：各部分使用标题层级，分组内容使用列表，命令和输出使用 fenced code block，Reviewer Checklist 使用 GitHub task-list checkbox；不得提交纯文本堆叠、错误标题层级或无法在 GitHub 正常渲染的随意格式。
-10. CI 必须包含完整测试入口，至少运行仓库结构检查、Markdown 空白检查和 `npm test`；项目增加真实单元、集成、UI、快照或性能测试后，应把对应命令接入 `npm test` 或 CI 明确步骤。
-
-## PR 模板要求
-
-功能 PR 描述必须覆盖以下内容：
-
-````markdown
-# PR Summary
-
-## Test-first Evidence
-
-- Failing test commit:
-- Test fails before implementation:
-  - [ ] Yes
-  - [ ] No
-  - [ ] Not applicable
-
-## Tests added
-
-- [ ] Unit
-- [ ] Integration
-- [ ] UI
-- [ ] Snapshot
-- [ ] Performance
-
-## Commands run
-
-```bash
-# test command
-```
-
-## Result
-
-- Failed before implementation
-- Passed after implementation
-
-## Agent Usage
-
-Human-authored:
-- Acceptance criteria:
-- Test cases:
-- Edge cases:
-
-Agent-generated:
-- Implementation:
-- Refactor:
-- Boilerplate:
-
-## Reviewer Checklist
-
-- [ ] Test commit reviewed first
-- [ ] Tests express requirement
-- [ ] Edge cases covered
-- [ ] Implementation is minimal
-- [ ] No unrelated changes
-- [ ] Agent code reviewed
-- [ ] CI passed
-````
-
-## 交付输出要求
-
-每次任务完成时，输出至少包含：
+每次完成任务时，用中文简洁说明：
 
 1. 修改了什么。
 2. 如何验证。
-3. 是否存在未验证内容或残余风险。
-4. 涉及的关键文件。
-5. Git 提交状态：是否已中文提交、提交信息是什么、工作区是否干净。
-6. PR 状态：是否已创建或更新 PR、是否需要合并、合并前 tag 是否已创建。
+3. 残余风险或未验证内容。
+4. 关键文件。
+5. Git 提交状态和工作区是否干净。
+6. PR 状态和是否需要合并。
 
-## 并行拆分与主代理清洁收口补充（新增强制）
-
-1. 大任务必须先由 PM 或主代理产出任务拆分与并行执行计划。
-2. 同一大任务可按子任务并行派发给专门角色，例如多个 `Explorer`、`Builder` 或 `Tester` 并行处理独立子任务。
-3. 子角色交付必须是清洁结果：任务产出、证据路径、交付边界、风险项、验证结果。
-4. 主代理仅进行收口：对齐边界、合并冲突、整理证据、不复述中间推演。
-5. 出现交付冲突时，主代理只回访相关子角色，不让未闭环信息进入最终交付。
-
-## 角色模型分配建议（仅使用以下模型）
-
-- `PM`：默认 `gpt-5.4`，复杂度高/边界冲突大时升级到 `gpt-5.5 medium`。
-- `Explorer`：默认 `gpt-5.4`，大规模证据检索任务可用 `gpt-5.5 medium`。
-- `Builder`：默认 `gpt-5.3-codex-spark`，复杂场景不足时可回退到 `gpt-5.4`，关键任务仍可直接升用 `gpt-5.5 medium`。
-- `Tester`：默认 `gpt-5.4`，复杂验证链路可升到 `gpt-5.5 medium`。
-- `Reporter`：默认 `gpt-5.4`，多方证据汇总时可升到 `gpt-5.5 medium`。
