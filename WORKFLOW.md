@@ -29,7 +29,7 @@ hooks:
     git status --short || true
 agent:
   default_runtime: codex
-  max_concurrent_agents: 10
+  max_concurrent_agents: 4
   max_turns: 20
   runtime_by_label:
     agent:codex: codex
@@ -329,8 +329,9 @@ Use this only when completion is blocked by missing required tools, non-GitHub a
 
 1. When the issue is in `Agent Review`, the designated reviewing agent should execute the `code-review` skill.
    - Use `requesting-code-review` and superpowers TDD tools for code review if needed.
-   - If the code has issues, move the issue to `Rework` and restore the original `agent:*` label so the implementation agent can fix them.
-   - If the code passes review, move the issue to `Human Review`.
+   - Update the workpad `### Agent Review` section with review status, reviewer identity, findings, required fixes, and verification expectations.
+   - If the code has issues, record each issue as an unchecked finding in `### Agent Review`, move the issue to `Rework`, and restore the original `agent:*` label so the implementation agent can fix them.
+   - If the code passes review, mark the review status as approved in `### Agent Review` and move the issue to `Human Review`.
 2. When the issue is in `Human Review`, do not code or change ticket content.
 3. Poll for updates as needed, including GitHub PR review comments from humans and bots.
 4. If review feedback requires changes, move the issue to `Rework` and follow the rework flow.
@@ -342,6 +343,7 @@ Use this only when completion is blocked by missing required tools, non-GitHub a
 
 1. Treat `Rework` as a full approach reset, not incremental patching.
 2. Re-read the full issue body and all human comments; explicitly identify what will be done differently this attempt.
+   - Read the workpad `### Agent Review` section first and convert every unchecked finding into the new plan/validation checklist.
 3. Close the existing PR tied to the issue.
 4. Remove the existing `## Codex Workpad` comment from the issue.
 5. Create a fresh branch from `origin/main`.
@@ -425,6 +427,17 @@ Use this exact structure for the persistent workpad comment and keep it updated 
 ### Notes
 
 - <short progress note with timestamp>
+
+### Agent Review
+
+- [ ] Status: `pending | changes requested | approved`
+- Reviewer: `<agent/runtime or person>`
+- Findings:
+  - [ ] `<finding with file/line, risk, and required fix>`
+- Verification requested:
+  - [ ] `<command, check, or evidence the fixer must provide>`
+- Resolution notes:
+  - <how each finding was fixed or why it was explicitly declined>
 
 ### Confusions
 
