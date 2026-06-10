@@ -4,12 +4,19 @@
   "description": "Codex agent workflow standards with roles, harness workflows, and Git/PR conventions.",
   "main": "index.js",
   "scripts": {
-    "test": "bash scripts/validate-repository.sh"
+    "test": "bash scripts/validate-repository.sh",
+    "openspec:list": "openspec list",
+    "openspec:validate": "openspec validate --all"
+  },
+  "devDependencies": {
+    "@fission-ai/openspec": "^1.4.1"
   },
   "keywords": [
     "codex",
     "agents",
     "harness",
+    "openspec",
+    "sdd",
     "tdd",
     "smart",
     "workflow"

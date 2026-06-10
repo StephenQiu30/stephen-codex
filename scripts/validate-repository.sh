@@ -6,7 +6,12 @@ required_files=(
   "AGENTS.md"
   "AGENTS.local.md"
   "WORKFLOW.md"
+  "openspec/config.yaml"
+  "openspec/specs/agent-governance/spec.md"
   ".env.example"
+  ".codex/skills/openspec-new-change/SKILL.md"
+  ".codex/skills/openspec-apply-change/SKILL.md"
+  ".codex/skills/openspec-verify-change/SKILL.md"
   ".codex/skills/harness-local-server/SKILL.md"
   ".codex/skills/harness-playwright-evidence/SKILL.md"
   ".codex/skills/harness-linear-loop/SKILL.md"
@@ -42,8 +47,12 @@ grep -q "project_slug" WORKFLOW.md
 grep -q "## Codex Workpad" WORKFLOW.md
 grep -q "Human Review" WORKFLOW.md
 grep -q 'test:`、`docs:`、`impl:`、`feat:`、`chore:`、`refactor:`' AGENTS.md
+grep -q "openspec/specs/" AGENTS.md
+grep -q "兼容性测试" AGENTS.md || grep -q "兼容性兜底测试" AGENTS.md
+grep -q "当前项目边界" AGENTS.md
 grep -q "test-first 提交顺序" AGENTS.md
 grep -q '`impl:` commit' AGENTS.md
+grep -q "OpenSpec" README.md
 grep -q "harness-quality-gate" WORKFLOW.md
 grep -q "superpowers" WORKFLOW.md
 

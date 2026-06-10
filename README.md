@@ -25,6 +25,7 @@ GitHub: <https://github.com/StephenQiu30/stephen-codex.git>
 4. 如何在 Codex 工作流中持续执行 MVP、TDD、SMART 规范。
 5. 如何通过 `WORKFLOW.md` 对齐 OpenAI Symphony 的 Linear ticket 编排方式。
 6. 如何使用 Harness + Superpowers skills 保证 TDD、端到端证据和 Linear 闭环。
+7. 如何通过 OpenSpec 把 SDD 规范沉淀为仓库内可验证资产。
 
 ## 目录功能
 
@@ -33,12 +34,13 @@ GitHub: <https://github.com/StephenQiu30/stephen-codex.git>
 3. `WORKFLOW.md`：OpenAI Symphony 风格的 Linear ticket 调度契约与 per-ticket Agent SOP。
 4. `.codex/agents/`：Codex 角色定义目录。
 5. `.codex/skills/`：Codex 可复用工作流目录，当前承载 harness、Linear、debug 和 Git 收口相关流程。
-6. `docs/`：项目文档骨架目录，保留分类目录和 README，正文文档按任务需要再归档。
-7. `.github/workflows/ci.yml`：GitHub Actions CI，用于检查模板基础结构。
-8. `package.json`：Node 项目元信息和验证入口。
-9. `LICENSE`：开源许可证。
-10. `CONTRIBUTING.md`：贡献说明。
-11. `scripts/vendor-superpowers-skills.sh`：从 obra/superpowers 更新 `.codex/skills/`（勿用 `npx skills add`）。
+6. `openspec/`：OpenSpec 规范层，记录 SDD 的稳定规格与变更提案。
+7. `docs/`：项目文档骨架目录，保留分类目录和 README，正文文档按任务需要再归档。
+8. `.github/workflows/ci.yml`：GitHub Actions CI，用于检查模板基础结构。
+9. `package.json`：Node 项目元信息、验证入口与 OpenSpec CLI 依赖。
+10. `LICENSE`：开源许可证。
+11. `CONTRIBUTING.md`：贡献说明。
+12. `scripts/vendor-superpowers-skills.sh`：从 obra/superpowers 更新 `.codex/skills/`（勿用 `npx skills add`）。
 
 ## 文件结构
 
@@ -53,6 +55,11 @@ codex/
 ├── AGENTS.md
 ├── AGENTS.local.md
 ├── WORKFLOW.md
+├── openspec/
+│   ├── config.yaml
+│   └── specs/
+│       └── agent-governance/
+│           └── spec.md
 ├── .codex/
 │   ├── agents/
 │   │   ├── pm.toml
@@ -95,7 +102,18 @@ codex/
 3. 接入 Symphony 或兼容 runner 时，复制并调整 `WORKFLOW.md` 中的 `project_slug`、workspace root、hooks 和 `SYMPHONY_REPO_URL`。
 4. 自定义角色时修改 `.codex/agents/` 下的角色文件。
 5. 在已有 Codex 项目中使用时，可以直接复制 `AGENTS.md`、`AGENTS.local.md`、`WORKFLOW.md`、`.codex/` 和 `docs/` 骨架目录。
-6. 本项目使用 MIT License，允许个人或团队在保留许可证声明的前提下自由使用和修改。
+6. 如需启用 OpenSpec 驱动的 SDD 流程，执行 `npm install` 后使用 `npm run openspec:list`、`npm run openspec:validate` 校验本地规范层。
+7. 本项目使用 MIT License，允许个人或团队在保留许可证声明的前提下自由使用和修改。
+
+## OpenSpec / SDD
+
+本模板把 OpenSpec 作为仓库内的规范层：
+
+1. `openspec/specs/` 保存当前被接受的长期行为与协作约束。
+2. `openspec/changes/` 用于承载未来增量提案、delta spec、设计和任务拆解。
+3. `.codex/skills/openspec-*` 是通过官方 CLI 安装的 OpenSpec workflow skills。
+4. 任何涉及长期行为、接口、流程门禁或角色契约的修改，都应先更新 OpenSpec 规范，再落实现或文档。
+5. 测试只能约束当前项目已接受的行为边界，不为兼容性补丁、历史兜底或越界扩展补写测试。
 
 ## 核心规范
 
