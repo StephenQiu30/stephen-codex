@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Define the accepted long-lived governance baseline for the Codex agent standards template, including how OpenSpec, project boundaries, and repository validation work together.
+Define the accepted long-lived governance baseline for the Codex agent standards template, including how OpenSpec-driven SDD execution, project boundaries, Agent Review, and repository validation work together.
 
 ## Requirements
 
@@ -22,8 +22,17 @@ Any change that alters long-lived behavior, contracts, review gates, or role res
 #### Scenario: Governance rule changes
 - **GIVEN** a change modifies `AGENTS.md`, `WORKFLOW.md`, role definitions, or validation expectations
 - **WHEN** the change affects durable repository behavior
-- **THEN** the change updates `openspec/specs/` or creates an OpenSpec delta under `openspec/changes/`
-- **AND** the matching `docs/design/` SDD document is updated in the same change set
+- **THEN** the change creates or updates proposal/specs/design/tasks under `openspec/changes/` before implementation
+- **AND** the accepted result is eventually synchronized back into `openspec/specs/`
+
+### Requirement: Agent Review Must Validate Against OpenSpec
+Agent Review MUST compare the delivered implementation against the linked OpenSpec change artifacts and baseline specs before the task can move to Human Review.
+
+#### Scenario: Review checks for drift
+- **GIVEN** a task enters `Agent Review`
+- **WHEN** the reviewer validates the task
+- **THEN** the reviewer compares implementation, workpad, PR evidence, and validation output against the current OpenSpec proposal/specs/design/tasks
+- **AND** any missing requirement, scope drift, or over-implementation is treated as a review failure
 
 ### Requirement: Tests Must Stay Inside Accepted Boundary
 The repository MUST reject compatibility-only tests and MUST keep automated checks aligned to the current accepted project boundary.
