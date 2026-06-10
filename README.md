@@ -102,7 +102,7 @@ codex/
 3. 接入 Symphony 或兼容 runner 时，复制并调整 `WORKFLOW.md` 中的 `project_slug`、workspace root、hooks 和 `SYMPHONY_REPO_URL`。
 4. 自定义角色时修改 `.codex/agents/` 下的角色文件。
 5. 在已有 Codex 项目中使用时，可以直接复制 `AGENTS.md`、`AGENTS.local.md`、`WORKFLOW.md`、`.codex/` 和 `docs/` 骨架目录。
-6. 如需启用 OpenSpec 驱动的 SDD 流程，执行 `npm install` 后使用 `npm run openspec:list`、`npm run openspec:validate` 校验本地规范层。
+6. 如需启用 OpenSpec 驱动的 SDD 流程，直接使用已安装的 OpenSpec skills 与仓库内 `openspec/` 规范层。
 7. 本项目使用 MIT License，允许个人或团队在保留许可证声明的前提下自由使用和修改。
 
 ## OpenSpec / SDD
