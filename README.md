@@ -67,6 +67,7 @@ codex/
 │   │   ├── tester.toml
 │   │   └── reporter.toml
 │   └── skills/
+│       ├── agent-browser/
 │       ├── harness-local-server/
 │       ├── harness-playwright-evidence/
 │       ├── harness-linear-loop/
@@ -149,7 +150,7 @@ PM -> Builder -> Tester
 1. `AGENTS.md` 存在，并包含 MVP、TDD、SMART、角色协作、Git/PR 收口和交付输出要求。
 2. `AGENTS.local.md` 存在，并说明它是项目局部规范配置文件。
 3. `WORKFLOW.md` 存在，并包含 `tracker.kind: linear`、`project_slug`、`## Codex Workpad` 和 `Human Review` 编排规则。
-4. `.codex/skills/` 中存在 `harness-local-server`、`harness-playwright-evidence`、`harness-linear-loop` 和 `debug`，用于补齐本地启动、浏览器证据、Linear 闭环和 Symphony 排障。
+4. `.codex/skills/` 中存在 `agent-browser`、`harness-local-server`、`harness-playwright-evidence`、`harness-linear-loop` 和 `debug`，用于补齐浏览器自动化、本地启动、浏览器证据、Linear 闭环和 Symphony 排障。
 5. `.codex/agents/` 中存在 `pm`、`explorer`、`builder`、`tester`、`reporter` 五类角色。
 6. `docs/` 目录保留分类结构和 README，不包含任务正文文档。
 7. `LICENSE` 与 `CONTRIBUTING.md` 存在，项目具备基础开源使用说明。

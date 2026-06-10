@@ -9,6 +9,7 @@ required_files=(
   "openspec/config.yaml"
   "openspec/specs/agent-governance/spec.md"
   ".env.example"
+  ".codex/skills/agent-browser/SKILL.md"
   ".codex/skills/openspec-new-change/SKILL.md"
   ".codex/skills/openspec-apply-change/SKILL.md"
   ".codex/skills/openspec-verify-change/SKILL.md"

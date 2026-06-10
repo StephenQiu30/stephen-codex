@@ -121,7 +121,7 @@ Mandatory Superpowers skills by phase:
 - Session / planning: `using-superpowers`, `writing-plans`
 - Red → green: `test-driven-development` (must align with `test:` then `impl:`/`feat:` commits)
 - Implementation: `executing-plans`; use `systematic-debugging` when blocked on failures
-- Runtime / E2E: `harness-local-server`, `harness-playwright-evidence` when UI or app-touching
+- Runtime / E2E: `agent-browser`, `harness-local-server`, `harness-playwright-evidence` when UI or app-touching
 - Handoff: `verification-before-completion`, `requesting-code-review`
 
 ## Related skills
@@ -293,7 +293,7 @@ Use this only when completion is blocked by missing required tools, non-GitHub a
     - You may make temporary local proof edits to validate assumptions (for example: tweak a local build input for `make`, or hardcode a UI account / response path) when this increases confidence.
     - Revert every temporary proof edit before commit/push.
     - Document these temporary proof steps and outcomes in the workpad `Validation`/`Notes` sections so reviewers can follow the evidence.
-    - If app-touching, run `harness-local-server` and `harness-playwright-evidence` (or `launch-app` / `github-pr-media` when configured) before handoff.
+    - If app-touching, run `agent-browser` plus `harness-local-server` and `harness-playwright-evidence` (or `launch-app` / `github-pr-media` when configured) before handoff.
 8.  Open and follow `.codex/skills/verification-before-completion/SKILL.md`; paste proof commands/output into Workpad `Validation` / `Notes`.
 9.  Re-check all acceptance criteria and close any gaps.
 10. Before every `git push` attempt, run the required validation for your scope and confirm it passes; if it fails, address issues and rerun until green, then commit and push changes using only the allowed commit types (`test:`, `docs:`, `impl:`, `chore:`, `feat:`, `refactor:`).
