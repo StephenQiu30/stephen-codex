@@ -5,7 +5,7 @@ context: |
   Stable governance files: AGENTS.md, AGENTS.local.md, WORKFLOW.md, docs/
   OpenSpec role: use openspec/specs/ for accepted long-lived requirements and
   openspec/changes/ for in-flight deltas.
-  Testing entrypoint: npm test -> bash scripts/validate-repository.sh
+  Testing entrypoint: bash scripts/validate-repository.sh
   Boundary rule: stay inside the current project scope and do not add cross-project
   compatibility behavior unless the normative files explicitly require it.
   Testing rule: do not add compatibility-only, fallback, dual-track, or legacy

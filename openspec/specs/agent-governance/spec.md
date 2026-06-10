@@ -39,6 +39,6 @@ Repository validation MUST fail when the required OpenSpec baseline or OpenSpec 
 
 #### Scenario: Required OpenSpec asset removed
 - **GIVEN** `openspec/config.yaml`, `openspec/specs/agent-governance/spec.md`, or required `.codex/skills/openspec-*` skill files are missing
-- **WHEN** `npm test` runs
+- **WHEN** `bash scripts/validate-repository.sh` runs
 - **THEN** `scripts/validate-repository.sh` fails
 - **AND** the repository is not considered ready for review
