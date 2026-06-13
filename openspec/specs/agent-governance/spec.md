@@ -25,6 +25,15 @@ Any change that alters long-lived behavior, contracts, review gates, or role res
 - **THEN** the change creates or updates proposal/specs/design/tasks under `openspec/changes/` before implementation
 - **AND** the accepted result is eventually synchronized back into `openspec/specs/`
 
+### Requirement: Every Task Must Run Inside an OpenSpec Loop
+Each task MUST execute inside one OpenSpec loop: create or continue a change, implement against its artifacts with TDD evidence, pass Agent Review, archive the change, and only then move forward.
+
+#### Scenario: Task starts without an OpenSpec change
+- **GIVEN** a task is ready for implementation
+- **WHEN** there is no active OpenSpec change covering that task
+- **THEN** implementation does not start
+- **AND** the task must first create or continue the appropriate OpenSpec change
+
 ### Requirement: Agent Review Must Validate Against OpenSpec
 Agent Review MUST compare the delivered implementation against the linked OpenSpec change artifacts and baseline specs before the task can move to Human Review.
 
@@ -33,6 +42,25 @@ Agent Review MUST compare the delivered implementation against the linked OpenSp
 - **WHEN** the reviewer validates the task
 - **THEN** the reviewer compares implementation, workpad, PR evidence, and validation output against the current OpenSpec proposal/specs/design/tasks
 - **AND** any missing requirement, scope drift, or over-implementation is treated as a review failure
+
+### Requirement: OpenSpec Change Must Be Archived Before Human Review
+A task MUST NOT move from Agent Review to Human Review until the corresponding OpenSpec change has been verified and archived.
+
+#### Scenario: Review passes but OpenSpec change is still active
+- **GIVEN** implementation and validation appear complete
+- **WHEN** the OpenSpec change has not yet been archived
+- **THEN** the task remains blocked from entering `Human Review`
+- **AND** the reviewer requires archive completion before approval
+
+### Requirement: Rework Must Re-enter the Same Engineering Loop
+When a task enters Rework, it MUST re-enter the OpenSpec-driven SDD and TDD loop until it passes Agent Review and archive gates.
+
+#### Scenario: Review finds deviation
+- **GIVEN** Agent Review finds missing requirements, scope drift, or implementation deviation
+- **WHEN** the task is moved to `Rework`
+- **THEN** the OpenSpec change is updated before more implementation continues
+- **AND** TDD red/green validation is rerun for the corrected scope
+- **AND** the task returns to `Agent Review` instead of skipping directly to `Human Review`
 
 ### Requirement: Tests Must Stay Inside Accepted Boundary
 The repository MUST reject compatibility-only tests and MUST keep automated checks aligned to the current accepted project boundary.
