@@ -166,7 +166,7 @@ Allowed commit types are fixed: `test:`, `docs:`, `impl:`, `chore:`, `feat:`, an
 - `In Progress` -> implementation actively underway.
 - `Agent Review` -> PR is ready for an agent to review. If issues are found, move to Rework, otherwise move to Human Review.
 - `Human Review` -> PR is attached and validated; waiting on human approval.
-- `Merging` -> approved by human; execute the `land` skill flow (do not call `gh pr merge` directly).
+- `Merging` -> approved by human; create and push the pre-merge annotated tag, then execute the `land` skill flow (do not call `gh pr merge` directly).
 - `Rework` -> reviewer requested changes; planning + implementation required.
 - `Blocked` -> waiting on a true external dependency; do not modify until a human unblocks or moves it back to `Todo`/`Rework`.
 - `Done` -> terminal state; no further action required.
@@ -182,7 +182,7 @@ Allowed commit types are fixed: `test:`, `docs:`, `impl:`, `chore:`, `feat:`, an
    - `In Progress` -> continue execution flow from current scratchpad comment and current OpenSpec change artifacts.
    - `Agent Review` -> run the `code-review` skill. Review the PR, workpad checklist, and the linked OpenSpec proposal/specs/design/tasks against the implementation. Also confirm the relevant OpenSpec change has passed verification and been archived. If issues are found, leave comments, restore the developer's `agent:*` label, and move to `Rework`. If approved and archived, move to `Human Review`.
    - `Human Review` -> wait and poll for decision/review updates.
-   - `Merging` -> on entry, open and follow `.codex/skills/land/SKILL.md`; do not call `gh pr merge` directly.
+   - `Merging` -> on entry, open and follow `.codex/skills/land/SKILL.md`; before merge, create and push a pre-merge annotated tag for the exact commit being landed. Do not call `gh pr merge` directly.
    - `Rework` -> run rework flow on the same OpenSpec loop unless the prior change is explicitly abandoned and replaced.
    - `Blocked` -> stop; leave the workpad blocker brief intact and wait for a human to unblock or move it back to an active state.
    - `Done` -> do nothing and shut down.
@@ -346,8 +346,10 @@ Use this only when completion is blocked by missing required tools, non-GitHub a
 3. Poll for updates as needed, including GitHub PR review comments from humans and bots.
 4. If review feedback requires changes, move the issue to `Rework` and follow the rework flow.
 5. If approved, human moves the issue to `Merging`.
-5. When the issue is in `Merging`, open and follow `.codex/skills/land/SKILL.md`, then run the `land` skill in a loop until the PR is merged. Do not call `gh pr merge` directly.
-6. After merge is complete, move the issue to `Done`.
+5. When the issue is in `Merging`, open and follow `.codex/skills/land/SKILL.md`.
+6. Before merging, create an annotated pre-merge tag on the exact commit being landed, using `pre-merge-<issue-or-pr>-YYYYMMDD` when an issue/PR identifier is available, then push the tag.
+7. Run the `land` skill in a loop until the PR is merged. Do not call `gh pr merge` directly.
+8. After merge is complete, move the issue to `Done`.
 
 ## Step 4: Rework handling
 
