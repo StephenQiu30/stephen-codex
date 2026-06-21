@@ -313,7 +313,7 @@ Use this only when completion is blocked by missing required tools, non-GitHub a
     - Do not post any additional completion summary comment.
 14. Open and follow `.codex/skills/requesting-code-review/SKILL.md`, then before moving to `Human Review`, poll PR feedback and checks:
     - Run `.codex/skills/openspec-verify-change/SKILL.md` and compare implementation, validation evidence, and PR/workpad notes against the current OpenSpec artifacts.
-    - Archive the verified OpenSpec change before requesting `Human Review`; unarchived changes fail the handoff gate.
+    - Archive the verified OpenSpec change with `.codex/skills/openspec-archive-change/SKILL.md` before requesting `Human Review`; unarchived changes fail the handoff gate.
     - Read the PR `Manual QA Plan` comment (when present) and use it to sharpen UI/runtime test coverage for the current change.
     - Run the full PR feedback sweep protocol.
     - Confirm PR checks are passing (green) after the latest changes.
@@ -334,10 +334,11 @@ Use this only when completion is blocked by missing required tools, non-GitHub a
 ## Step 3: Agent Review, Human Review and merge handling
 
 1. When the issue is in `Agent Review`, the designated reviewing agent should execute the `code-review` skill and compare the delivered change against the linked OpenSpec proposal/specs/design/tasks and `openspec/specs/` baseline.
+   - Functional Review is mandatory: inspect implementation logic for requirement gaps, regressions, security or data-flow bugs, and false completion where the workpad or PR claims done while functionality is still missing.
    - Use `requesting-code-review` and superpowers TDD tools for code review if needed.
    - Update the workpad `### Agent Review` section with review status, reviewer identity, findings, required fixes, and verification expectations.
-   - If the code has issues, record each issue as an unchecked finding in `### Agent Review`, move the issue to `Rework`, and restore the original `agent:*` label so the implementation agent can fix them. Do not move to `Human Review` from a failed agent review.
-   - If the code passes review, confirm the OpenSpec change is verified and archived, then mark the review status as approved in `### Agent Review` and move the issue to `Human Review`.
+   - If the code has issues, missing functionality, unverified acceptance criteria, an unarchived OpenSpec change, or false completion, record each issue as an unchecked finding in `### Agent Review`, move the issue to `Rework`, and restore the original `agent:*` label so the implementation agent can fix them. Do not move to `Human Review` from a failed agent review.
+   - If the code passes Functional Review, confirm the OpenSpec change is verified and archived, then mark the review status as approved in `### Agent Review` and move the issue to `Human Review`.
 2. When the issue is in `Human Review`, do not code or change ticket content.
 3. Poll for updates as needed, including GitHub PR review comments from humans and bots.
 4. If review feedback requires changes, move the issue to `Rework` and follow the rework flow.
