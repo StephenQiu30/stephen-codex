@@ -121,7 +121,7 @@ Follow `.codex/skills/harness-quality-gate/SKILL.md` as the master checklist. It
 Mandatory Superpowers skills by phase:
 
 - Session / planning: `using-superpowers`, `writing-plans`
-- OpenSpec / SDD: `openspec-new-change`, `openspec-apply-change`, `openspec-verify-change`, and when continuing existing work `openspec-continue-change`
+- OpenSpec / SDD: `openspec-new-change`, `openspec-apply-change`, `openspec-verify-change`, `openspec-archive-change`, and when continuing existing work `openspec-continue-change`
 - Red → green: `test-driven-development` (must align with `test:` then `impl:`/`feat:` commits)
 - Implementation: `executing-plans`; use `systematic-debugging` when blocked on failures
 - Agent Review: `receiving-code-review` before accepting, rejecting, or acting on review findings
@@ -315,7 +315,7 @@ Use this only when completion is blocked by missing required tools, non-GitHub a
     - Do not post any additional completion summary comment.
 14. Open and follow `.codex/skills/requesting-code-review/SKILL.md`, then before moving to `Human Review`, poll PR feedback and checks:
     - Run `.codex/skills/openspec-verify-change/SKILL.md` and compare implementation, validation evidence, and PR/workpad notes against the current OpenSpec artifacts.
-    - Archive the verified OpenSpec change with `.codex/skills/openspec-archive-change/SKILL.md` before requesting `Human Review`; unarchived changes fail the handoff gate.
+    - If verification passes with no critical findings, immediately archive the OpenSpec task/change with `.codex/skills/openspec-archive-change/SKILL.md`; unarchived changes fail the handoff gate and cannot move to `Human Review`.
     - Read the PR `Manual QA Plan` comment (when present) and use it to sharpen UI/runtime test coverage for the current change.
     - Run the full PR feedback sweep protocol.
     - Confirm PR checks are passing (green) after the latest changes.
