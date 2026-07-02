@@ -50,7 +50,7 @@
 ## Linear 与 Workpad
 
 1. 复杂任务优先以 Linear ticket 为执行单位，并在隔离 workspace 中完成。
-2. 状态建议：`Backlog -> Todo -> In Progress -> Agent Review -> Human Review -> Merging -> Done`，保留 `Rework` 与 `Blocked`。
+2. 状态建议：`Backlog -> Todo -> In Progress -> Agent Review -> Human Review -> Merging -> Done`，保留 `Rework` 与 `Blocked`；进入 `Merging` 后必须先为即将落地的准确提交创建并推送 annotated pre-merge tag，再执行合并流程。
 3. `Backlog`、`Done`、`Blocked` 不主动修改；`Todo` 开工后移动到 `In Progress`。
 4. 每个 ticket 只维护一个持久评论：`## Codex Workpad`。
 5. Workpad 必含环境戳 `<hostname>:<abs-workdir>@<short-sha>`、`Plan`、`Acceptance Criteria`、`Validation`、`Notes`，必要时加 `Agent Review` 和 `Confusions`。
@@ -61,7 +61,7 @@
 
 1. `AGENTS.md` 写稳定行为准则；`WORKFLOW.md` 写 Linear project、workspace、hooks、agent command、并发和 label 路由。
 2. 执行 agent 使用 `agent:*` 标签；审核 agent 使用 `reviewer:*` 标签。
-3. `Agent Review` 阶段优先使用 `reviewer:*`，常用标签：`reviewer:claude`、`reviewer:gemini`、`reviewer:codex`、`reviewer:cursor`。
+3. `Agent Review` 阶段优先使用 `reviewer:*`，常用标签：`reviewer:claude`、`reviewer:antigravity`、`reviewer:codex`、`reviewer:cursor`。
 4. 默认 reviewer 为 `reviewer:claude`；不要使用旧式 `review:*` 标签。
 5. Review 发现问题时，把意见写入 Workpad 的 `Agent Review` 区域，移动到 `Rework`，并保留/恢复实现用的 `agent:*` 标签。
 6. `Agent Review` 必须对照本次任务对应的 OpenSpec proposal/specs/design/tasks 与 `openspec/specs/` 基线校验实现偏差、漏项和越界项。
@@ -90,6 +90,7 @@
 5. PR feedback sweep 已完成：顶层评论、inline review、review summary 中无未处理 actionable 反馈。
 6. PR 正文使用合法 Markdown，并包含 Summary、Test-first Evidence、Commands run、Result、Agent Usage、Reviewer Checklist。
 7. UI/前端变更提供截图、trace、录屏或可复现手工证据。
+8. 人工批准进入 `Merging` 后，必须先为即将落地的准确提交创建并推送 annotated pre-merge tag，tag 名建议使用 `pre-merge-<issue-or-pr>-YYYYMMDD`，再执行 `.codex/skills/land/SKILL.md` 合并流程；不要直接调用 `gh pr merge`。
 
 ## Rework 与 Blocked
 
